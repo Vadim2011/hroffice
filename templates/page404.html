@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+
+      <div class="container">
+        <main class="main">
+          <button onclick="window.location.href='/'"  class="button-small event-download">выйти</button>
+          <div class="title">
+            <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+          </div>
+          <div class="subtitle">
+            <h2>Страница не найдена</h2>
+            <h2>===== 404 =====</h2>
+          </div>          
+          <br>
+          <div class="error"></div>
+        </main>
+      </div>
+
+        <footer class="footer">
+          <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>
+          <script src="{{ url_for('static', filename='js/app_menu.js')}}" type="module"></script>
+        </footer>
+
+  </div>
+
+
+</body>
+</html>

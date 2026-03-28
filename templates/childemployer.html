@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+    <div class="container">
+      <main class="main">
+        <div class="back-out">
+          <button onclick="window.location.href='/menu2'"  class="button-small">&larr; назад</button>
+          <div class="error">{{ message }}</div>
+          <button onclick="window.location.href='/'"  class="button-small">выйти</button>
+        </div>
+
+        <div class="title">
+          <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+        </div>
+        <div class="subtitle">
+          <h2>Список детей сотрудников</h2>
+        </div>
+        
+        <div>
+          <table data-table class="table">
+            <tr>
+              <td class="text-center">Номер СР</td>
+              <td class="text-center">Таб.№ сотр.</td>
+              <td class="text-center">Имя</td>
+              <td class="text-center">Год рожд.</td>
+              <td class="text-center">Пол</td>
+              <td class="text-center">Действие</td>
+              <td class="text-center">Действие</td>
+            </tr>
+            <tr data-item class="add-item">
+              <td><input data-child-birth-cert-number type="text" name="nameoffice" placeholder="Номер СР"></td>
+              <td><input data-employer-number type="text" name="nameoffice" placeholder="Таб.№ сотр."></td>
+              <td><input data-child-name type="text" name="nameoffice" placeholder="Имя"></td>
+              <td><input data-child-birth-year type="text" name="nameoffice" placeholder="Год рожд."></td>
+              <td><input data-child-gender type="text" name="nameoffice" placeholder="Пол"></td>
+              <td colspan="2"><button data-add class="button-small event-add">Добавить</button></td>
+            </tr>
+            <tr data-item>
+              <td><input data-child-birth-cert-number="A-2134" type="text" name="updateoffice" value="A-2134"></td>
+              <td><input data-employer-number="123" type="text" name="updateoffice" value="123"></td>
+              <td><input data-child-name="Аимя" type="text" name="updateoffice" value="Аимя"></td>
+              <td><input data-child-birth-year="2020" type="text" name="updateoffice" value="2020"></td>
+              <td><input data-child-gender="муж" type="text" name="updateoffice" value="муж"></td>
+              <td>
+                <button data-update class="button-small update">Обновить</button>
+              </td>
+              <td>
+                <button data-delete class="button-small delete">Удалить</button>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>
+      <script src="{{ url_for('static', filename='js/app_childemployer.js') }}" type="module"></script>
+    </footer>
+  </div>
+  
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <p>Вы уверены, что хотите продолжить?</p>
+      <br><br>
+      <button id="confirmBtn">ОК</button>
+      <br><br>
+      <button id="cancelBtn">Отмена</button>
+    </div>
+  </div>
+
+</body>
+</html>

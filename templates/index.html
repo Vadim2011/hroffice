@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><a href="/"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></a></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+      <div class="container">
+        <main class="main">
+          <div class="title">
+            <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+          </div>
+          <form name="login" action="/" method="post" class="form-login">
+            <div>
+              <div class="flex-between">
+                <label for="user_role">Выберете роль</label>
+                <select name="role_" id="role_">
+                  <option value="hr">Сотрудник кадров (123)</option>
+                  <option value="manager">Руководитель (321)</option>
+                </select>              
+              </div>
+
+              <div class="flex-between">
+                <label for="password">Введите пароль</label>
+                <input type="password" name="passw" id="passw"> 
+              </div>
+              <button type="submit" class="submit">Войти</button>
+            </div>
+          </form>
+          <div class="error">{{ message }}</div>
+        </main>
+      </div>
+
+        <footer class="footer">
+          <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>
+          <script src="{{ url_for('static', filename='js/app_login.js')}}" ></script>
+        </footer>
+
+
+  </div>
+
+
+</body>
+</html>

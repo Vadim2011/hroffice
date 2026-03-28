@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+
+    <div class="container">
+      <main class="main">
+        <div class="back-out">
+          <button onclick="window.location.href='/menu2'"  class="button-small">&larr; назад</button>
+          <div class="error">{{ message }}</div>
+          <button onclick="window.location.href='/'"  class="button-small">выйти</button>
+        </div>
+
+        <div class="title">
+          <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+        </div>
+        <div class="subtitle">
+          <h2>Список сотрудников</h2>
+        </div>
+
+        <div>
+          <table data-table class="table">
+            <tr>
+              <td class="text-center">Таб. номер</td>
+              <td class="text-center">Фа</td>
+              <td class="text-center">Имя</td>
+              <td class="text-center">Отчество</td>
+              <td class="text-center">Пол</td>
+              <td class="text-center">Стаж</td>
+              <td class="text-center">Номер отдела</td>
+              <td class="text-center" colspan="2">Действие</td>
+            </tr>
+            <tr data-item class="add-item">
+              <td></td>
+              <td><input data-employer-surname type="text" name="nameoffice" placeholder="Фамилия"></td>
+              <td><input data-employer-firstname type="text" name="nameoffice" placeholder="Имя"></td>
+              <td><input data-employer-patronymic type="text" name="nameoffice" placeholder="Отчество"></td>
+              <td><input data-employer-gender type="text" name="nameoffice" placeholder="пол"></td>
+              <td><input data-employer-length-work type="text" name="nameoffice" placeholder="Стаж"></td>
+              <td><input data-office-number type="text" name="nameoffice" placeholder="Отдел"></td>
+              <td colspan="2"><button data-add class="button-small event-add">Добавить</button></td>
+            </tr>
+            <tr data-item>
+              <td        data-employer-number>1</td>
+              <td><input data-employer-surname="Афамилия" type="text" name="updateoffice" value="Афамилия"></td>
+              <td><input data-employer-firstname="Аимя" type="text" name="updateoffice" value="Аимя"></td>
+              <td><input data-employer-patronymic="Аотчество" type="text" name="updateoffice" value="Аотчество"></td>
+              <td><input data-employer-gender="муж" type="text" name="updateoffice" value="муж"></td>
+              <td><input data-employer-length-work="23" type="text" name="updateoffice" value="23"></td>
+              <td><input data-office-number="Отдел А" type="text" name="updateoffice" value="Отдел А"></td>
+              <td>
+                <button data-update class="button-small update">Обновить</button>
+              </td>
+              <td>
+                <button data-delete class="button-small delete">Удалить</button>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </div>
+
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>
+      <script src="{{ url_for('static', filename='js/app_employer.js')}}" type="module"></script>
+    </footer>
+  </div>
+
+  <div id="confirmModal" class="modal">
+    <div class="modal-content">
+      <p>Вы уверены, что хотите продолжить?</p>
+      <br><br>
+      <button id="confirmBtn">ОК</button>
+      <br><br>
+      <button id="cancelBtn">Отмена</button>
+    </div>
+  </div>
+
+</body>
+</html>

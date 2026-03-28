@@ -1,4 +1,3 @@
-
 git init
 
 git@github.com:Vadim2011/hroffice.git
@@ -11,17 +10,104 @@ git branch -M main
 git remote add origin git@github.com:Vadim2011/hroffice.git
 git push -u origin main
 
+------- branch
+git branch <new-branch-name>
+git checkout -b <new-branch-name>
+
+git branch -D <branch-name> # force delete branch
 
 
 
 
 
+C:\Users\rabot\Desktop\ИрНИТУ\2Курс\БД\КП\web\
+
+pg_dump -U username -d dbname -s > full_db_structure.sql
 
 
+flask -> wsgi -> web_server
+
+python -m venv .venv
+
+(source .venv/bin/activate)
+(.venv\Scripts\Activate.ps1)
+(.venv\Scripts\activate.bat)
+source .venv/Scripts/activate
+deactivate
+
+pip install Flask
+# pip freeze > requirements.txt
+# pip3 install -r requirements.txt
+
+python app_hroffice.py
 
 
+{{ title }}
+render_template('in.html', 
+title='pro flask')
+
+{% for i in menu %}
+<li> {{i}} </li>
+{% endfor %}
+
+{% if title %}
+  <div> {{title}} </div>
+{% else %}
+   <div> Not </div>
+{% endif %}
+
+Базовый шиблон
+
+Контекст приложения
+g, current_app
+g - пользовательская инфо (соед с БД)
+current_app - контекст тек. приложения Flask(app1), Flask(app2)
+
+request, session 
+request - 
+session - соханять данные вовремя сессии, сохран после окончания запроса
+
+url_for
+
+@app.office(/office/<idoffice>)
+
+@app.office(/office/<idoffice>)
+
+@app.office(/office/<path:idoffice>)
+@app.office(/office/<int:idoffice>)
+def foo(idoffice)
+
+int
+float
+path
 
 
+structure
+app.py
+/template
+    index.html
+    other.html
+   
+/static
+    /css
+        style.css
+    /js 
+        app.js
+
+
+href="{{ url_for('static', filename='css/style.css')}}"
+
+
+flesh()
+get_flashed_messages()
+
+flesh(message, category='message')
+get_flashed_messages()
+
+redirect(url_for)
+
+
+# export FLASK_APP=APP
 
 
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+    <div class="container">
+      <main class="main">
+        <div class="back-out">
+          <div></div>
+          <div class="error">{{ message }}</div>
+          <button onclick="window.location.href='/'"  class="button-small">выйти</button>
+        </div>
+
+        
+        <div class="title">
+          <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+        </div>
+
+        <div class="subtitle">
+          <h2>Отчет по всей БД</h2>
+        </div>
+        <div>
+          <table data-table class="table">
+            <tr class="add-item">
+              <td colspan="12"><button data-download class="button-small event-download">Скачать</button></td>
+            </tr>
+            <tr>
+              <td class="text-center">№ отд.</td>
+              <td class="text-center">Название отд.</td>
+              <td class="text-center">Таб. номер сотр.</td>
+              <td class="text-center">Фамилия сотр.</td>
+              <td class="text-center">Имя сотр.</td>
+              <td class="text-center">Отчество сотр.</td>
+              <td class="text-center">Пол сотр.</td>
+              <td class="text-center">Стаж сотр.</td>
+              <td class="text-center">Номер СР</td>
+              <td class="text-center">Имя</td>
+              <td class="text-center">Год рожд.</td>
+              <td class="text-center">Пол</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>Название отд.</td>
+              <td>233</td>
+              <td>Иванов</td>
+              <td>Иван</td>
+              <td>Иванович</td>
+              <td>муж</td>
+              <td>23</td>
+              <td>A-2134</td>
+              <td>Аимя</td>
+              <td>2020</td>
+              <td>муж</td>
+            </tr>
+          </table>
+          <br>
+        </div>
+      </main>
+    </div>
+
+      <footer class="footer">
+        <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>        
+        <script src="{{ url_for('static', filename='js/app_download.js') }}" type="module"></script>
+      </footer>
+  </div>
+</body>
+</html>

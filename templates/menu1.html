@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="курсовой проект, проектирование АИС отдела кадров">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+    <script src="{{ url_for('static', filename='js/app.js')}}" type="module"></script>
+    <title>Курсовой проект БД</title>
+  </head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo"><a href="/"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></a></div>
+      <div class="header__title">АИС Отдела кадров</div>
+    </header>
+
+
+      <div class="container">
+        <main class="main">
+          <div class="back-out">
+            <div></div>
+            <div class="error">{{ message }}</div>
+            <button onclick="window.location.href='/'"  class="button-small">выйти</button>
+          </div>
+
+          <div class="title">
+            <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+          </div>
+          <div class="subtitle">
+            <h2>Роль руководитель</h2>
+          </div>
+
+          <button class="office btn-menu" onclick="window.location.href='/office'">Показать список отделов</button>
+          <br>
+          <button class="list__db btn-menu" onclick="window.location.href='/listdb'">Отчет полный отчет по БД</button>
+          <br><br>
+          <button class="list__db btn-menu btn-out" onclick="window.location.href='/'">выйти</button>
+
+        </main>
+      </div>
+
+        <footer class="footer">
+          <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>
+          <script src="{{ url_for('static', filename='js/app_menu.js')}}" ></script>
+        </footer>
+
+
+  </div>
