@@ -5,7 +5,7 @@ import { params, fetchPostPutDel, confirmсChanges, fetchRenderJson} from "./app
 
 
 const RENDER_FIELD = document.querySelector('[data-table]');
-const URI = '/download'
+const URI = '/get-child'
 const btnDownload = document.querySelector('[data-download]');
 
 
