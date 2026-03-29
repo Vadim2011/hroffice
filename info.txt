@@ -16,9 +16,9 @@ git checkout -b <new-branch-name>
 
 git branch -D <branch-name> # force delete branch
 
-
-
-
+python3 -m venv .venv
+.\\.venv\Scripts\\Activate.ps1
+pip3 install flask
 
 C:\Users\rabot\Desktop\ИрНИТУ\2Курс\БД\КП\web\
 
@@ -112,7 +112,7 @@ redirect(url_for)
 
 
 
-
+C:\Users\rabot\OneDrive\Рабочий стол\ИрНИТУ\2Курс\web_front_end\web\info.txt
 
 
 

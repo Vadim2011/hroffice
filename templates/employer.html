@@ -46,22 +46,34 @@
             </tr>
             <tr data-item class="add-item">
               <td></td>
-              <td><input data-employer-surname type="text" name="nameoffice" placeholder="Фамилия"></td>
-              <td><input data-employer-firstname type="text" name="nameoffice" placeholder="Имя"></td>
-              <td><input data-employer-patronymic type="text" name="nameoffice" placeholder="Отчество"></td>
-              <td><input data-employer-gender type="text" name="nameoffice" placeholder="пол"></td>
-              <td><input data-employer-length-work type="text" name="nameoffice" placeholder="Стаж"></td>
-              <td><input data-office-number type="text" name="nameoffice" placeholder="Отдел"></td>
+              <td><input data-employer-surname type="text" placeholder="Фамилия"></td>
+              <td><input data-employer-firstname type="text" placeholder="Имя"></td>
+              <td><input data-employer-patronymic type="text" placeholder="Отчество"></td>
+              <td>
+                  <select data-employer-gender>
+                    <option value="m">m</option>
+                    <option value="f">f</option>
+                  </select> 
+              </td>
+              <td><input data-employer-length-work type="number" placeholder="Стаж&lt;100"></td>
+              <td>
+                <select data-office-number name="nameoffice">
+                {% for office in offices %}
+                  <option value="{{ office[0] }}">{{ office[0] }}</option>
+                {% endfor %}
+                </select>                
+              </td>
               <td colspan="2"><button data-add class="button-small event-add">Добавить</button></td>
             </tr>
+            {% for employer in employers %}
             <tr data-item>
-              <td        data-employer-number>1</td>
-              <td><input data-employer-surname="Афамилия" type="text" name="updateoffice" value="Афамилия"></td>
-              <td><input data-employer-firstname="Аимя" type="text" name="updateoffice" value="Аимя"></td>
-              <td><input data-employer-patronymic="Аотчество" type="text" name="updateoffice" value="Аотчество"></td>
-              <td><input data-employer-gender="муж" type="text" name="updateoffice" value="муж"></td>
-              <td><input data-employer-length-work="23" type="text" name="updateoffice" value="23"></td>
-              <td><input data-office-number="Отдел А" type="text" name="updateoffice" value="Отдел А"></td>
+              <td        data-employer-number>{{ employer[0] }}</td>
+              <td><input data-employer-surname="{{ employer[1] }}" type="text" value="{{ employer[1] }}"></td>
+              <td><input data-employer-firstname="{{ employer[2] }}" type="text" value="{{ employer[2] }}"></td>
+              <td><input data-employer-patronymic="{{ employer[3] }}" type="text" value="{{ employer[3] }}"></td>
+              <td><input data-employer-gender="{{ employer[4] }}" type="text" value="{{ employer[4] }}"></td>
+              <td><input data-employer-length-work="{{ employer[5] }}" type="number" value="{{ employer[5] }}"></td>
+              <td><input data-office-number="{{ employer[6] }}" type="number" value="{{ employer[6] }}"></td>
               <td>
                 <button data-update class="button-small update">Обновить</button>
               </td>
@@ -69,6 +81,7 @@
                 <button data-delete class="button-small delete">Удалить</button>
               </td>
             </tr>
+            {% endfor %}
           </table>
           <br>
         </div>

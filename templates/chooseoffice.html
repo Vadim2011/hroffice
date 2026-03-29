@@ -39,13 +39,11 @@
               </tr>
               <tr>
                 <td>
-                  <select name="choeseoffice" data-select-office>
-                    <option value="1">Отдел А</option>
-                    <option value="2">Отдел Б</option>
-                    <option value="3">Отдел В</option>
-                    <option value="4">Отдел Г</option>
-                    <option value="5">Отдел Д</option>
-                  </select>
+                  <select data-select-office>
+                    {% for office in offices %}
+                      <option value="{{ office[0] }}">{{ office[0] }}</option>
+                    {% endfor %}
+                  </select>  
                 </td>
                 <td><button data-download class="button-small">Выбрать</button></td>
               </tr>
@@ -60,7 +58,7 @@
       </div>
 
       <footer class="footer">
-        <div class="footer__copy">>&copy; Николаев Вадим Александрович АСУбз-23-1</div>        
+        <div class="footer__copy">&copy; Николаев Вадим Александрович АСУбз-23-1</div>        
         <script src="{{ url_for('static', filename='js/app_download_child.js') }}" type="module"></script>
       </footer>
   </div>

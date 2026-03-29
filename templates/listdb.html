@@ -24,15 +24,62 @@
           <button onclick="window.location.href='/'"  class="button-small">выйти</button>
         </div>
 
-        
         <div class="title">
           <h1 class="title__hero">Курсовой проект АСУбз23-1 Николаев ВА</h1>
+          <a href="/download"><button class="button-small event-download">Скачать</button></a>
         </div>
 
         <div class="subtitle">
           <h2>Отчет по всей БД</h2>
         </div>
         <div>
+          <h3>Отделы, количество детей сотрудников в отделах</h3>
+           <table data-table class="table">
+            <tr class="add-item">
+              <td colspan="3"><button data-download class="button-small event-download">Скачать</button></td>
+            </tr>
+            <tr>
+              <td class="text-center">№ отд.</td>
+              <td class="text-center">Название отд.</td>
+              <td class="text-center"><b>Количество детей стор.</b></td>
+            </tr>
+            {% for item in office_child %}
+            <tr>
+              <td class="text-center">{{ item[0] }}</td>
+              <td class="text-center">{{ item[1] }}</td>
+              <td class="text-center"><b>{{ item[2] }}</b></td>
+            </tr>
+            {% endfor %}
+          </table>
+          <br>
+
+          <h3>Сотрудники, количество детей</h3>
+           <table data-table class="table">
+            <tr class="add-item">
+              <td colspan="5"><button data-download class="button-small event-download">Скачать</button></td>
+            </tr>
+            <tr>
+              <td class="text-center">Табельный номер сотрудника</td>
+              <td class="text-center">Фамилия сотруд.</td>
+              <td class="text-center">Имя сотруд.</td>
+              <td class="text-center">Отчество сотруд.</td>
+              <td class="text-center"><b>Кол-во детей у сотруд.</b></td>
+              <td class="text-center">отдел в котором сотруд.</td>
+            </tr>
+            {% for item in count_ch %}
+            <tr>
+              <td class="text-center">{{ item[0] }}</td>
+              <td class="text-center">{{ item[1] }}</td>
+              <td class="text-center">{{ item[2] }}</td>
+              <td class="text-center">{{ item[3] }}</td>
+              <td class="text-center"><b>{{ item[4] }}</b></td>
+              <td class="text-center">{{ item[5] }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+          <br>
+
+          <h3>Все таблицы БД</h3>
           <table data-table class="table">
             <tr class="add-item">
               <td colspan="12"><button data-download class="button-small event-download">Скачать</button></td>
@@ -51,20 +98,22 @@
               <td class="text-center">Год рожд.</td>
               <td class="text-center">Пол</td>
             </tr>
-            <tr>
-              <td>18</td>
-              <td>Название отд.</td>
-              <td>233</td>
-              <td>Иванов</td>
-              <td>Иван</td>
-              <td>Иванович</td>
-              <td>муж</td>
-              <td>23</td>
-              <td>A-2134</td>
-              <td>Аимя</td>
-              <td>2020</td>
-              <td>муж</td>
-            </tr>
+            {% for row in alldb %}
+             <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+                <td>{{ row[7] }}</td>
+                <td>{{ row[8] }}</td>
+                <td>{{ row[9] }}</td>
+                <td>{{ row[10].year }}</td>
+                <td>{{ row[11] }}</td>
+              </tr>
+            {% endfor %}
           </table>
           <br>
         </div>

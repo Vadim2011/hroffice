@@ -43,26 +43,39 @@
               <td class="text-center">Действие</td>
             </tr>
             <tr data-item class="add-item">
-              <td><input data-child-birth-cert-number type="text" name="nameoffice" placeholder="Номер СР"></td>
-              <td><input data-employer-number type="text" name="nameoffice" placeholder="Таб.№ сотр."></td>
-              <td><input data-child-name type="text" name="nameoffice" placeholder="Имя"></td>
-              <td><input data-child-birth-year type="text" name="nameoffice" placeholder="Год рожд."></td>
-              <td><input data-child-gender type="text" name="nameoffice" placeholder="Пол"></td>
+              <td><input data-child-birth-cert-number type="text" placeholder="Номер СР"></td>
+              <td>
+                 <select data-employer-number>
+                  {% for employer in employers %}
+                    <option value="{{ employer[0] }}">{{ employer[0] }}</option>
+                  {% endfor %}
+                </select>  
+              </td>
+              <td><input data-child-name type="text" placeholder="Имя"></td>
+              <td><input data-child-birth-year type="date" placeholder="Год рожд."></td>
+              <td>
+                <select data-child-gender>
+                  <option value="m">m</option>
+                  <option value="f">f</option>
+                </select> 
+              </td>
               <td colspan="2"><button data-add class="button-small event-add">Добавить</button></td>
             </tr>
+            {% for child in children %}
             <tr data-item>
-              <td><input data-child-birth-cert-number="A-2134" type="text" name="updateoffice" value="A-2134"></td>
-              <td><input data-employer-number="123" type="text" name="updateoffice" value="123"></td>
-              <td><input data-child-name="Аимя" type="text" name="updateoffice" value="Аимя"></td>
-              <td><input data-child-birth-year="2020" type="text" name="updateoffice" value="2020"></td>
-              <td><input data-child-gender="муж" type="text" name="updateoffice" value="муж"></td>
-              <td>
-                <button data-update class="button-small update">Обновить</button>
-              </td>
-              <td>
-                <button data-delete class="button-small delete">Удалить</button>
-              </td>
-            </tr>
+                <td><input data-child-birth-cert-number="{{ child[0] }}" type="text" value="{{ child[0] }}"></td>
+                <td><input data-employer-number="{{ child[1] }}" type="number" value="{{ child[1] }}"></td>
+                <td><input data-child-name="{{ child[2] }}" type="text" value="{{ child[2] }}"></td>
+                <td><input data-child-birth-year="{{ child[3] }}" type="date" value="{{ child[3] }}"></td>
+                <td><input data-child-gender="{{ child[4] }}" type="text" value="{{ child[4] }}"></td>
+                <td>
+                  <button data-update class="button-small update">Обновить</button>
+                </td>
+                <td>
+                  <button data-delete class="button-small delete">Удалить</button>
+                </td>
+              </tr>
+              {% endfor %}
           </table>
           <br>
         </div>

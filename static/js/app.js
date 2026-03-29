@@ -63,18 +63,26 @@ export function fetchRenderJson(uri, render_field=undefined) {
 
       const contentType = response.headers.get('Content-Type');
       const authorization = response.headers.get('Authorization'); 
-
+ 
       if (contentType && contentType.includes('application/json')) { 
-        return response.json();
+        const res_json = response.json()
+        return res_json;
       }
       throw new Error(`JSON error! not json`);
     })
-    .then(result => {
+    .then(res_json => {
         render_field.innerHTML = '';
-        console.log(result);
-        for (let key in result) {
-          console.log(key);
-          render_field.insertAdjacentHTML('beforeend', `<tr><td>${key} - ${result[key]} </td></tr>`); 
+        console.log(res_json);
+        for (let item of res_json) {
+          console.log(item);
+          render_field.insertAdjacentHTML('beforeend', `<tr>
+                                                            <td>${item[0]}</td>
+                                                            <td>${item[1]}</td>
+                                                            <td>${item[2]}</td>
+                                                            <td>${item[3]}</td>
+                                                            <td>${item[4]}</td>
+                                                            <td>${item[5]}</td>
+                                                        </tr>`); 
         }
 
     })

@@ -14,7 +14,7 @@
     <header class="header">
       <div class="logo"><img class="logo__img" src="{{ url_for('static', filename='img/logo_hr.png')}}" alt="logo"></div>
       <div class="header__title">АИС Отдела кадров</div>
-    </header>
+    </header> 
 
       <div class="container">
         <main class="main">
@@ -32,10 +32,6 @@
             <h2>Список отделов</h2>
           </div>          
 
-          {% for msg in get_flashed_messages() %}
-            <div>{{ msg }}</div>
-          {% endfor %}
-
           <div>
             <table data-table class="table">
               <tr>
@@ -48,18 +44,14 @@
                 <td><input data-office-name type="text" name="nameoffice" placeholder="Отдел"></td>
                 <td colspan="2"><button class="button-small event-add" data-add>Добавить</button></td>
               </tr>
-              <tr data-item>
-                <td        data-office-number>2</td>
-                <td><input data-office-name="Отдел А" name="updateoffice" value="Отдел А"></td>
+              {% for office in offices %}
+               <tr data-item>
+                <td        data-office-number>{{ office[0] }}</td>
+                <td><input data-office-name="{{ office[1] }}" type="text" value="{{ office[1] }}"></td>
                 <td><button class="button-small update" data-update>Обновить</button></td>
                 <td><button class="button-small delete" data-delete>Удалить</button></td>
               </tr>
-              <tr data-item>
-                <td        data-office-number>3</td>
-                <td><input data-office-name="Отдел B" type="text" value="Отдел B"></td>
-                <td><button class="button-small update" data-update>Обновить</button></td>
-                <td><button class="button-small delete" data-delete>Удалить</button></td>
-              </tr>
+              {% endfor %}
             </table>
             <br>
           </div>

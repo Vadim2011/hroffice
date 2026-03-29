@@ -26,8 +26,9 @@ function upateData(e) {
   let data = {};
 
   if (office_name.dataset.officeName != office_name.value) {
-    data.office_number = office_number;
     data.office_name = office_name.value;
+    data.office_number = office_number;
+
 
     confirmсChanges(fetchPostPutDel, [URI, data, 'PUT']);
   }
