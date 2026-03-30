@@ -35,7 +35,7 @@ def index():
       return render_template('menu1.html')
 
     else:
-      msg = 'Какая-то ошибка'
+      msg = 'Ошибка логин или пароль'
 
   return render_template('index.html', message=msg)
 
@@ -57,50 +57,59 @@ def office():
   table = 'office'
 
   if request.method == 'POST':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
 
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
-    item_columns = item_columns
-    item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
+      item_columns = item_columns
+      item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
-    sql = f"INSERT INTO {table} (" + item_columns + ") "
-    sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
-    cur.execute(sql, item_values)
-    conn.commit()
+      # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
+      sql = f"INSERT INTO {table} (" + item_columns + ") "
+      sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
+      cur.execute(sql, item_values)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
   
   if request.method == 'PUT':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('c1', 'c2', ..., pk)
-    pk_name = item_columns[-1] + '=%s;' # извлекаем pk=%5
-    item_columns = item_columns[:-1] # удаляем pk из последов Ключей
-    item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('c1', 'c2', ..., pk)
+      pk_name = item_columns[-1] + '=%s;' # извлекаем pk=%5
+      item_columns = item_columns[:-1] # удаляем pk из последов Ключей
+      item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
-    pk_value = item_values[-1] # извлекаем Знач vpk
-    item_values = item_values[:-1] # удаляем Знач vpk из основной послед
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      pk_value = item_values[-1] # извлекаем Знач vpk
+      item_values = item_values[:-1] # удаляем Знач vpk из основной послед
 
-    # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
-    sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + pk_name            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
-    cur.execute(sql, (*item_values, pk_value)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
-    conn.commit()
+      # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
+      sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + pk_name            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+      cur.execute(sql, (*item_values, pk_value)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
    
   if request.method == 'DELETE':
-    item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
-    item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
+      item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос DELETE FROM table WHERE id=1 and k=2;
-    sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
- 
-    cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
-    conn.commit()
+      # формируем запрос DELETE FROM table WHERE id=1 and k=2;
+      sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+  
+      cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
 
   cur.execute('SELECT * FROM office;')
   offices = cur.fetchall()
@@ -116,52 +125,61 @@ def employer():
   table = 'employer'
 
   if request.method == 'POST':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
 
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
-    item_columns = item_columns
-    item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
+      item_columns = item_columns
+      item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
-    sql = f"INSERT INTO {table} (" + item_columns + ") "
-    sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
+      # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
+      sql = f"INSERT INTO {table} (" + item_columns + ") "
+      sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
 
-    cur.execute(sql, item_values)
-    conn.commit()
+      cur.execute(sql, item_values)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
   
   if request.method == 'PUT':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
-    pk_name = item_columns[-1] + '=%s;' # извлекаем pk=%5
-    item_columns = item_columns[:-1] # удаляем pk из последов Ключей
-    item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
+      pk_name = item_columns[-1] + '=%s;' # извлекаем pk=%5
+      item_columns = item_columns[:-1] # удаляем pk из последов Ключей
+      item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
-    pk_value = item_values[-1] # извлекаем Знач vpk
-    item_values = item_values[:-1] # удаляем Знач vpk из основной послед
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      pk_value = item_values[-1] # извлекаем Знач vpk
+      item_values = item_values[:-1] # удаляем Знач vpk из основной послед
 
-    # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
-    sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + pk_name            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
-    print(sql,(*item_values, pk_value) )
-    cur.execute(sql, (*item_values, pk_value)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
-    conn.commit()
+      # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
+      sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + pk_name            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+      print(sql,(*item_values, pk_value) )
+      cur.execute(sql, (*item_values, pk_value)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
    
   if request.method == 'DELETE':
-    item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
-    item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
+      item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос DELETE FROM table WHERE id=1 and k=2;
-    sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+      # формируем запрос DELETE FROM table WHERE id=1 and k=2;
+      sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
 
-    cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
-    conn.commit()
+      cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
  
   cur.execute('SELECT * FROM employer;')
   employers = cur.fetchall()
@@ -173,59 +191,68 @@ def employer():
 
 
 @app.route('/childemployer', methods=['GET','POST','PUT', 'DELETE'])
-def childemployer():
+def children():
   conn = get_connect_db()
   cur = conn.cursor()
   table = 'children_employer'
 
   if request.method == 'POST':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
 
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
-    item_columns = item_columns
-    item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
+      item_columns = item_columns
+      item_columns = (',').join(item_columns) # преобразуем последов. ключей (колонок) 'c2, c3, ...,cn'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
-    sql = f"INSERT INTO {table} (" + item_columns + ") "
-    sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
+      # формируем запрос INSERT INTO table (c1, c2, c3) VALUES (v1, v2, v3);
+      sql = f"INSERT INTO {table} (" + item_columns + ") "
+      sql =  sql + 'VALUES (' + ('%s,' * len(item_values)).strip(',') + ");"
 
-    cur.execute(sql, item_values)
-    conn.commit()
+      cur.execute(sql, item_values)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
   
   if request.method == 'PUT':
-    item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
-    pk_name = item_columns[-2] + '=%s AND ' # извлекаем pk=%5
-    pk_name2 = item_columns[-1] + '=%s;'
-    item_columns = item_columns[:-2] # удаляем pk из последов Ключей
-    item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk':'v1', 'c2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk', 'c2', 'c3', ...)
+      pk_name = item_columns[-2] + '=%s AND ' # извлекаем pk=%5
+      pk_name2 = item_columns[-1] + '=%s;'
+      item_columns = item_columns[:-2] # удаляем pk из последов Ключей
+      item_columns = ('=%s,').join(item_columns) + '=%s' # преобразуем последов. ключей (колонок) 'c2=%s, c3=%s, ...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
-    pk_value = item_values[-2] # извлекаем Знач vpk
-    pk_value2 = item_values[-1] # извлекаем Знач vpk
-    item_values = item_values[:-2] # удаляем Знач vpk из основной послед
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      pk_value = item_values[-2] # извлекаем Знач vpk
+      pk_value2 = item_values[-1] # извлекаем Знач vpk
+      item_values = item_values[:-2] # удаляем Знач vpk из основной послед
 
-    # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
-    sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + pk_name + pk_name2   # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+      # формируем запрос UPDATE table SET c1=v1, c2=v2 WHERE id=2;
+      sql = f"UPDATE {table} SET " + item_columns  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + pk_name + pk_name2   # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
 
-    cur.execute(sql, (*item_values, pk_value, pk_value2)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
-    conn.commit()
+      cur.execute(sql, (*item_values, pk_value, pk_value2)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
   
   if request.method == 'DELETE':
-    item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
-    item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
-    item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
+    try:
+      item = request.get_json() # получаем данные от клиента {'pk2':'v1', 'pk2': 'v2',...}
+      item_columns = tuple(item.keys()) # преобразуем Ключи к виду ('pk1', 'pk2', 'pk3', ...)
+      item_columns = ('=%s AND ').join(item_columns) + '=%s;' # преобразуем последов. ключей 'pk1=%s AND c3=%s...'
 
-    item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
+      item_values = tuple(item.values()) # преобразуем Значен к виду ('v1', 'v2', 'v3', ...)
 
-    # формируем запрос DELETE FROM table WHERE id=1 and k=2;
-    sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
-    sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
-    cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
-    conn.commit()
+      # формируем запрос DELETE FROM table WHERE id=1 and k=2;
+      sql = f"DELETE FROM {table}"  # "UPDATE table SET c2=%s, c3=%s"
+      sql = sql + ' WHERE ' + item_columns            # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;" 
+      cur.execute(sql, item_values) # "DELETE FROM table WHERE pk1=%s AND pk2=%s;", (v1, v2)
+      conn.commit()
+    except:
+      return '<b>Ошибка</b> <br> обработки данных', 400
 
   cur.execute('SELECT * FROM employer;')
   employers = cur.fetchall()
@@ -238,7 +265,7 @@ def childemployer():
 
 
 @app.route('/get-child/<int:path>')  # Возвращает JSON
-def child_group_office_item(path=None):
+def childJSON(path=None):
   conn = get_connect_db()
   cur = conn.cursor()
 
@@ -254,7 +281,7 @@ def child_group_office_item(path=None):
   cur.execute(sql, (path,)) # "UPDATE table SET c2=%s, c3=%s WHERE pk=%s;", (v2, v3, vpk)
   children_emp_office = [('номер отд.','Номер свид. о рожд.','имя ребенка','год рожд. реб.','пол реб.')]
   children_emp_office = children_emp_office + cur.fetchall()
-  print(type(child_group_office))
+
   cur.close()
   conn.close()
 
@@ -263,10 +290,10 @@ def child_group_office_item(path=None):
 
 
 @app.route('/chooseoffice')  # Выбор отдела для показа детей
-def child_group_office():
+def chooseoffice():
   conn = get_connect_db()
   cur = conn.cursor()
-  cur.execute('SELECT * FROM office;')
+  cur.execute('SELECT * FROM office ORDER BY office_number;')
   offices = cur.fetchall()
   cur.close()
   conn.close()

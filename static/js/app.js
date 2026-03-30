@@ -39,14 +39,17 @@ export function fetchPostPutDel(uri, data, method="POST") {
 
   fetch(uri, settings)
     .then(response => {
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+        return response.text().then(text => {throw new Error(`${text} ${response.status}`)})
       };
+      reload(); 
       reload(); 
     })
     .catch(error => {
-      console.error('Код ошибки', error);
-      errorShow();
+      console.log(error)
+      console.error(error.message);
+      errorShow(error);
   })
 }
 
